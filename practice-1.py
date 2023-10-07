@@ -243,7 +243,7 @@ for epoch in tqdm(range(epochs)):# loop over the dataset multiple times
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
 ##        if(i==5):
- ##         break
+##         break
         # get the inputs; data is a list of [inputs, labels]
         inputs, labels = data
         inputs, labels = inputs.to(device), labels.to(device)
