@@ -226,7 +226,7 @@ criterion = nn.CrossEntropyLoss()
 
 learning_rate = 0.008
 optimizer = optim.SGD(net.parameters(), lr=learning_rate)
-epochs = 10
+epochs = 50
 
 ##############################################################################
 #                              END OF YOUR CODE                              #
