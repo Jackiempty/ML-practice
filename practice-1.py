@@ -28,14 +28,15 @@ if torch.backends.mps.is_available():
     x = torch.ones(1, device=mps_device)
     print ("MPS device is available. Successfully initiated:")
     print (x)
-    device="mps"
+    device = mps_device
 elif torch.cuda.is_available():
+    device = torch.device("cuda:0")
     print("GPU is available.")
     print("GPU device count:", torch.cuda.device_count())
     print("Current GPU device:", torch.cuda.current_device())
     print("GPU device name:", torch.cuda.get_device_name(torch.cuda.current_device()))
 else:
-    device = "cuda"
+    device = torch.device("cpu")
 
 print("Use device:",device)
 
