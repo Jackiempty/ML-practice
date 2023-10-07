@@ -23,7 +23,20 @@ from sklearn.model_selection import train_test_split
 from torchvision import datasets
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # use gpu if you have
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+if torch.backends.mps.is_available():
+    mps_device = torch.device("mps")
+    x = torch.ones(1, device=mps_device)
+    print ("MPS device is available. Successfully initiated:")
+    print (x)
+    device="mps"
+elif torch.cuda.is_available():
+    print("GPU is available.")
+    print("GPU device count:", torch.cuda.device_count())
+    print("Current GPU device:", torch.cuda.current_device())
+    print("GPU device name:", torch.cuda.get_device_name(torch.cuda.current_device()))
+else:
+    device = "cuda"
+
 print("Use device:",device)
 
 # set random seed
