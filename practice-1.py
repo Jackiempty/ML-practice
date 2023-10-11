@@ -122,7 +122,7 @@ classes = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
 ##############################################################################
 
 # please change the batch_size
-trainloader = DataLoader(trainset, batch_size=128, shuffle=True, num_workers = 2)
+trainloader = DataLoader(trainset, batch_size=64, shuffle=True, num_workers = 2)
 testloader = DataLoader(testset, batch_size=64, shuffle=False, num_workers = 2)
 
 # (Bonus Part) Add a validation dataloader here.
@@ -203,7 +203,7 @@ model.to(device)
 #                          TODO: Fill the parameters                         #
 ##############################################################################
 
-batch_size = 128
+batch_size = 64
 channel = 1
 height = 28
 width = 28
@@ -216,8 +216,6 @@ result = model(torch.rand((batch_size, channel, height, width)).to(device))
 print(result.shape)
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 ## Use GPU
-device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-print(device)
 net = model.to(device)
 criterion = nn.CrossEntropyLoss()
 
@@ -225,9 +223,9 @@ criterion = nn.CrossEntropyLoss()
 #                         TODO: Design the Parameters                        #
 ##############################################################################
 
-learning_rate = 0.008
+learning_rate = 0.005
 optimizer = optim.SGD(net.parameters(), lr=learning_rate)
-epochs = 50
+epochs = 20
 
 ##############################################################################
 #                              END OF YOUR CODE                              #
@@ -243,8 +241,8 @@ for epoch in tqdm(range(epochs)):# loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
-##        if(i==5):
-##         break
+        # if(i==5):
+        #     break
         # get the inputs; data is a list of [inputs, labels]
         inputs, labels = data
         inputs, labels = inputs.to(device), labels.to(device)
