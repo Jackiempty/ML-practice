@@ -122,8 +122,10 @@ classes = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
 ##############################################################################
 
 # please change the batch_size
-trainloader = DataLoader(trainset, batch_size=64, shuffle=True, num_workers = 2)
-testloader = DataLoader(testset, batch_size=64, shuffle=False, num_workers = 2)
+# torch.set_num_interop_threads(2)
+# torch.set_num_threads(2)
+trainloader = DataLoader(trainset, batch_size=64, shuffle=True, num_workers = 0)
+testloader = DataLoader(testset, batch_size=64, shuffle=False, num_workers = 0)
 
 # (Bonus Part) Add a validation dataloader here.
 
@@ -225,7 +227,7 @@ criterion = nn.CrossEntropyLoss()
 
 learning_rate = 0.005
 optimizer = optim.SGD(net.parameters(), lr=learning_rate)
-epochs = 20
+epochs = 5
 
 ##############################################################################
 #                              END OF YOUR CODE                              #
@@ -241,8 +243,6 @@ for epoch in tqdm(range(epochs)):# loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
-        # if(i==5):
-        #     break
         # get the inputs; data is a list of [inputs, labels]
         inputs, labels = data
         inputs, labels = inputs.to(device), labels.to(device)
