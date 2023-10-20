@@ -1,4 +1,45 @@
+import os
+import csv
+import torch
+import numpy as np
+import pandas as pd
+import torch.nn as nn
+import torchvision
+import random
+import matplotlib.pyplot as plt
+import pandas as pd
+import torch.optim as optim
+import math
+import multiprocessing
+import time
 
+from PIL import Image
+from torchvision import transforms
+from torch.utils.data import Dataset, DataLoader, random_split
+from tqdm.notebook import tqdm
+from sklearn.model_selection import train_test_split
+from torchvision import datasets
+
+DATA_PATH = os.path.join('./data/')
+print(os.listdir(DATA_PATH))
+
+# use gpu if you have
+if torch.backends.mps.is_available():
+    mps_device = torch.device("mps")
+    x = torch.ones(1, device=mps_device)
+    print ("MPS device is available. Successfully initiated:")
+    print (x)
+    device = mps_device
+elif torch.cuda.is_available():
+    device = torch.device("cuda:0")
+    print("GPU is available.")
+    print("GPU device count:", torch.cuda.device_count())
+    print("Current GPU device:", torch.cuda.current_device())
+    print("GPU device name:", torch.cuda.get_device_name(torch.cuda.current_device()))
+else:
+    device = torch.device("cpu")
+
+print("Use device:",device)
 
 # set random seed
 SEED = 6220
