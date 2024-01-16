@@ -204,11 +204,6 @@ class trainmodel(nn.Module):
 model = trainmodel()
 model.to(device)
 # -------------------------------------------------------------------------------------------------------------------------------------------------------
-x = torch.rand(1,28,28).to(device)
-out = model.conv_block(x)
-# flat = model.forward(x)
-out.shape
-# -------------------------------------------------------------------------------------------------------------------------------------------------------
 ##############################################################################
 #                          TODO: Fill the parameters                         #
 ##############################################################################
@@ -328,29 +323,34 @@ for epoch in range(1, epochs+1):# loop over the dataset multiple times
 
 print('Finished Training')
 # -------------------------------------------------------------------------------------------------------------------------------------------------------
-def plt_loss_acc(list_to_draw,name):
+def plt_acc_all():
     fig = plt.figure(figsize=(15, 5))
     ax1 = fig.add_subplot(1, 2, 1)
-    if name=="train_loss":
-      ax1.set_title('Train Loss')
-      ax1.plot(list_to_draw)
-    elif name=="train_acc":
-      ax1.set_title('Train Accuracy')
-      ax1.plot(list_to_draw)
-    elif name=="valid_loss":
-      ax1.set_title('Valid Loss')
-      ax1.plot(list_to_draw)
-    elif name=="valid_acc":
-      ax1.set_title('Valid Accuracy')
-      ax1.plot(list_to_draw)
+    ax1.set_title('All acc')
 
+    ax1.plot(train_acc_list)
+    ax1.plot(valid_acc_list)
+
+    ax1.legend(['train_acc', 'valid_acc'], loc='upper left')
     ax1.set_xlabel('epoch')
+    # plt.savefig("./weight/acc")
+    plt.show()
+
+def plt_loss_all():
+    fig = plt.figure(figsize=(15, 5))
+    ax1 = fig.add_subplot(1, 2, 1)
+    ax1.set_title('All loss')
+
+    ax1.plot(train_loss_list)
+    ax1.plot(valid_loss_list)
+
+    ax1.legend(['train_loss', 'valid_loss'], loc='upper left')
+    ax1.set_xlabel('epoch')
+    # plt.savefig("./weight/loss")
     plt.show()
 # -------------------------------------------------------------------------------------------------------------------------------------------------------
-plt_loss_acc(train_loss_list, "train_loss")
-plt_loss_acc(train_acc_list, "train_acc")
-plt_loss_acc(valid_loss_list, "valid_loss")
-plt_loss_acc(valid_acc_list, "valid_acc")
+plt_acc_all()
+plt_loss_all()
 # -------------------------------------------------------------------------------------------------------------------------------------------------------
 correct = 0
 total = 0
